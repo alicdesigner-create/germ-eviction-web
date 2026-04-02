@@ -57,8 +57,19 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
-          © 2025 Germ Eviction. All rights reserved.
+        <div className="mt-10 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm space-y-1">
+          <p>© 2025 Germ Eviction. All rights reserved.</p>
+          <p>
+            Created and designed by{" "}
+            <a
+              href="https://tesographics.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors"
+            >
+              tesographics.com
+            </a>
+          </p>
         </div>
       </div>
     </footer>
