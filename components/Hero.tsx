@@ -8,7 +8,7 @@ export default function Hero() {
     >
       {/* Background image */}
       <Image
-        src="/images/1.jpeg"
+        src="/images/hero-blacklight.jpg"
         alt="Commercial facility background"
         fill
         className="object-cover"
