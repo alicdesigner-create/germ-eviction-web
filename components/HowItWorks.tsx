@@ -142,12 +142,19 @@ export default function HowItWorks() {
   const sectionRef = useRef<HTMLElement>(null);
   const blobRef = useRef<HTMLDivElement>(null);
 
+  const contentRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const onScroll = () => {
-      if (!sectionRef.current || !blobRef.current) return;
+      if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const centerOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
-      blobRef.current.style.transform = `translateY(${centerOffset * 0.06}px)`;
+      if (contentRef.current) {
+        contentRef.current.style.transform = `translateY(${centerOffset * -0.025}px)`;
+      }
+      if (blobRef.current) {
+        blobRef.current.style.transform = `translateY(${centerOffset * 0.06}px)`;
+      }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -163,7 +170,7 @@ export default function HowItWorks() {
         aria-hidden="true"
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div ref={contentRef} className="relative will-change-transform max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         {/* Part 1 — 3-Step System */}
         <div className="text-center mb-14">
           <p

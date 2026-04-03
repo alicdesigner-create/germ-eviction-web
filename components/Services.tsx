@@ -48,6 +48,7 @@ const services = [
 
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const bgImgRef = useRef<HTMLDivElement>(null);
   const blob1Ref = useRef<HTMLDivElement>(null);
   const blob2Ref = useRef<HTMLDivElement>(null);
@@ -57,6 +58,9 @@ export default function Services() {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const centerOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
+      if (contentRef.current) {
+        contentRef.current.style.transform = `translateY(${centerOffset * -0.025}px)`;
+      }
       if (bgImgRef.current) {
         bgImgRef.current.style.transform = `translateY(${centerOffset * 0.12}px) scale(1.1)`;
       }
@@ -108,7 +112,7 @@ export default function Services() {
         aria-hidden="true"
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div ref={contentRef} className="relative will-change-transform max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         {/* Header */}
         <div className="text-center mb-14">
           <p

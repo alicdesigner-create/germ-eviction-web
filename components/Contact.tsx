@@ -23,13 +23,19 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const bgImgRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
-      if (!sectionRef.current || !bgImgRef.current) return;
+      if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const centerOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
-      bgImgRef.current.style.transform = `translateY(${centerOffset * 0.1}px) scale(1.1)`;
+      if (bgImgRef.current) {
+        bgImgRef.current.style.transform = `translateY(${centerOffset * 0.1}px) scale(1.1)`;
+      }
+      if (contentRef.current) {
+        contentRef.current.style.transform = `translateY(${centerOffset * -0.025}px)`;
+      }
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -68,7 +74,7 @@ export default function Contact() {
         style={{ backgroundColor: "rgba(42, 191, 191, 0.82)" }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div ref={contentRef} className="relative will-change-transform max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         {/* Header */}
         <div className="text-center mb-14">
           <p className="text-xs uppercase tracking-[0.2em] font-semibold text-white/60 mb-3">

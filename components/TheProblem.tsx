@@ -77,6 +77,7 @@ function ThreatCard({ card }: { card: typeof problemCards[0] }) {
 
 export default function TheProblem() {
   const sectionRef = useRef<HTMLElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
   const blob1Ref = useRef<HTMLDivElement>(null);
   const blob2Ref = useRef<HTMLDivElement>(null);
 
@@ -85,6 +86,9 @@ export default function TheProblem() {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const centerOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
+      if (contentRef.current) {
+        contentRef.current.style.transform = `translateY(${centerOffset * -0.025}px)`;
+      }
       if (blob1Ref.current) {
         blob1Ref.current.style.transform = `translateY(${centerOffset * 0.07}px)`;
       }
@@ -113,7 +117,7 @@ export default function TheProblem() {
       />
 
       {/* Section 1 */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+      <div ref={contentRef} className="will-change-transform max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         <div className="text-center mb-14">
           <p
             className="text-xs uppercase tracking-[0.2em] font-semibold mb-3"
