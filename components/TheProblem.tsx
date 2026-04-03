@@ -41,34 +41,16 @@ const problemCards = [
   },
 ];
 
-function FadeCard({ card, index }: { card: typeof problemCards[0]; index: number }) {
-  const [active, setActive] = useState(false);
-  const isHoveredRef = useRef(false);
-  const phaseRef = useRef(false);
-
-  useEffect(() => {
-    const BACK_MS = 2400;   // time showing the back side
-    const FRONT_MS = 2800;  // time showing the front side
-    let timer: ReturnType<typeof setTimeout>;
-
-    const next = () => {
-      phaseRef.current = !phaseRef.current;
-      if (!isHoveredRef.current) setActive(phaseRef.current);
-      timer = setTimeout(next, phaseRef.current ? BACK_MS : FRONT_MS);
-    };
-
-    // Stagger each card so they don't all flip simultaneously
-    timer = setTimeout(next, index * 1300);
-    return () => clearTimeout(timer);
-  }, [index]);
+function FadeCard({ card, isActive }: { card: typeof problemCards[0]; isActive: boolean }) {
+  const [hovered, setHovered] = useState(false);
+  const active = isActive || hovered;
 
   return (
     <div
       className="relative cursor-pointer rounded-2xl overflow-hidden shadow-sm"
       style={{ height: "280px" }}
-      onMouseEnter={() => { isHoveredRef.current = true; setActive(true); }}
-      onMouseLeave={() => { isHoveredRef.current = false; setActive(phaseRef.current); }}
-      onClick={() => setActive((v) => !v)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       {/* Background image — fades in */}
       <div
@@ -102,9 +84,33 @@ function FadeCard({ card, index }: { card: typeof problemCards[0]; index: number
 }
 
 export default function TheProblem() {
+  const [activeCard, setActiveCard] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const blob1Ref = useRef<HTMLDivElement>(null);
   const blob2Ref = useRef<HTMLDivElement>(null);
+
+  // Sequential left → right loop
+  useEffect(() => {
+    const BACK_MS = 4500;   // time showing the back (enough to read)
+    const PAUSE_MS = 1000;  // pause on front before next card
+    const TOTAL = problemCards.length;
+    let current = 0;
+    let timer: ReturnType<typeof setTimeout>;
+
+    const showNext = () => {
+      setActiveCard(current);
+      timer = setTimeout(() => {
+        setActiveCard(null);
+        timer = setTimeout(() => {
+          current = (current + 1) % TOTAL;
+          showNext();
+        }, PAUSE_MS);
+      }, BACK_MS);
+    };
+
+    timer = setTimeout(showNext, 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -160,7 +166,7 @@ export default function TheProblem() {
         {/* Fade cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
           {problemCards.map((card, i) => (
-            <FadeCard key={card.label} card={card} index={i} />
+            <FadeCard key={card.label} card={card} isActive={activeCard === i} />
           ))}
         </div>
 
