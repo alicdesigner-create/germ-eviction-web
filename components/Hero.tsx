@@ -7,6 +7,7 @@ export default function Hero() {
   const bgRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  // Parallax on scroll
   useEffect(() => {
     const onScroll = () => {
       if (bgRef.current) {
@@ -17,10 +18,41 @@ export default function Hero() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Slow playback + smooth loop fade via requestAnimationFrame
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.35;
-    }
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.playbackRate = 0.35;
+
+    const FADE = 0.7; // seconds of video time to fade in/out
+    let rafId: number;
+
+    const tick = () => {
+      if (video.duration && !video.paused) {
+        const t = video.currentTime;
+        const remaining = video.duration - t;
+
+        let opacity = 1;
+        if (remaining < FADE) {
+          opacity = remaining / FADE;
+        } else if (t < FADE) {
+          opacity = t / FADE;
+        }
+        video.style.opacity = String(Math.max(0, Math.min(1, opacity)));
+      }
+      rafId = requestAnimationFrame(tick);
+    };
+
+    // Start rAF loop once video is ready
+    const onReady = () => { rafId = requestAnimationFrame(tick); };
+    video.addEventListener("canplay", onReady, { once: true });
+    if (video.readyState >= 3) onReady();
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      video.removeEventListener("canplay", onReady);
+    };
   }, []);
 
   return (
@@ -51,7 +83,7 @@ export default function Hero() {
       {/* Dark overlay */}
       <div
         className="absolute inset-0"
-        style={{ backgroundColor: "rgba(26, 32, 44, 0.80)" }}
+        style={{ backgroundColor: "rgba(26, 32, 44, 0.86)" }}
       />
 
       {/* Content */}
