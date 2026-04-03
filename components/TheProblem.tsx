@@ -1,11 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 const problemCards = [
   {
     label: "Embedded Pathogens",
+    image: "/images/germs_microscope.jpg",
+    backText:
+      "Invisible to the naked eye, bacteria and pathogens embed deep into surfaces — surviving routine cleaning for months.",
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="3" strokeWidth={2} />
@@ -15,6 +18,9 @@ const problemCards = [
   },
   {
     label: "Limescale Buildup",
+    image: "/images/Limescale_Buildup.jpg",
+    backText:
+      "Mineral deposits harden over time, corroding fixtures and creating the perfect breeding ground for harmful microorganisms.",
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2C8 8 5 12 5 16a7 7 0 0014 0c0-4-3-8-7-14z" />
@@ -23,6 +29,9 @@ const problemCards = [
   },
   {
     label: "Grease",
+    image: "/images/Grease.jpg",
+    backText:
+      "Industrial grease penetrates grout and flooring, attracting bacteria and creating slip hazards your daily crew can't fully remove.",
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -31,6 +40,71 @@ const problemCards = [
     ),
   },
 ];
+
+function FlipCard({ card }: { card: typeof problemCards[0] }) {
+  const [flipped, setFlipped] = useState(false);
+
+  return (
+    <div
+      className="cursor-pointer"
+      style={{ perspective: "1000px", height: "280px" }}
+      onMouseEnter={() => setFlipped(true)}
+      onMouseLeave={() => setFlipped(false)}
+      onClick={() => setFlipped((f) => !f)}
+    >
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          transformStyle: "preserve-3d",
+          transition: "transform 0.6s ease",
+          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
+        }}
+      >
+        {/* FRONT */}
+        <div
+          className="absolute inset-0 bg-white rounded-2xl shadow-sm flex flex-col items-center justify-center gap-4 px-6"
+          style={{ backfaceVisibility: "hidden" }}
+        >
+          <div
+            className="w-16 h-16 rounded-full border-2 flex items-center justify-center"
+            style={{ borderColor: "#E53E3E", color: "#E53E3E" }}
+          >
+            {card.icon}
+          </div>
+          <p className="font-semibold text-[#1A202C] text-center text-base">
+            {card.label}
+          </p>
+          <p className="text-xs text-gray-400 mt-1">Hover to reveal</p>
+        </div>
+
+        {/* BACK */}
+        <div
+          className="absolute inset-0 rounded-2xl overflow-hidden flex items-center justify-center"
+          style={{
+            backfaceVisibility: "hidden",
+            transform: "rotateY(180deg)",
+          }}
+        >
+          <Image
+            src={card.image}
+            alt={card.label}
+            fill
+            className="object-cover"
+          />
+          <div
+            className="absolute inset-0"
+            style={{ backgroundColor: "rgba(26, 32, 44, 0.60)" }}
+          />
+          <p className="relative z-10 text-white text-sm font-medium text-center leading-relaxed px-6">
+            {card.backText}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function TheProblem() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -88,23 +162,10 @@ export default function TheProblem() {
           </p>
         </div>
 
-        {/* Icon cards */}
+        {/* Flip cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
           {problemCards.map((card) => (
-            <div
-              key={card.label}
-              className="flex flex-col items-center gap-4 bg-white rounded-2xl p-9 shadow-sm"
-            >
-              <div
-                className="w-16 h-16 rounded-full border-2 flex items-center justify-center"
-                style={{ borderColor: "#E53E3E", color: "#E53E3E" }}
-              >
-                {card.icon}
-              </div>
-              <p className="font-semibold text-[#1A202C] text-center text-base">
-                {card.label}
-              </p>
-            </div>
+            <FlipCard key={card.label} card={card} />
           ))}
         </div>
 
