@@ -41,13 +41,13 @@ const problemCards = [
   },
 ];
 
-function FlipCard({ card, index }: { card: typeof problemCards[0]; index: number }) {
-  const [flipped, setFlipped] = useState(false);
-  const [autoFlipped, setAutoFlipped] = useState(false);
+function FadeCard({ card, index }: { card: typeof problemCards[0]; index: number }) {
+  const [active, setActive] = useState(false);
+  const [autoShown, setAutoShown] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (autoFlipped) return;
+    if (autoShown) return;
     const el = cardRef.current;
     if (!el) return;
 
@@ -56,12 +56,10 @@ function FlipCard({ card, index }: { card: typeof problemCards[0]; index: number
         if (entry.isIntersecting) {
           observer.disconnect();
           const stagger = index * 300;
-          // flip to back
-          setTimeout(() => setFlipped(true), stagger);
-          // flip back to front
+          setTimeout(() => setActive(true), stagger);
           setTimeout(() => {
-            setFlipped(false);
-            setAutoFlipped(true);
+            setActive(false);
+            setAutoShown(true);
           }, stagger + 2000);
         }
       },
@@ -69,66 +67,44 @@ function FlipCard({ card, index }: { card: typeof problemCards[0]; index: number
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [autoFlipped, index]);
+  }, [autoShown, index]);
 
   return (
     <div
       ref={cardRef}
-      className="cursor-pointer"
-      style={{ perspective: "1000px", height: "280px" }}
-      onMouseEnter={() => setFlipped(true)}
-      onMouseLeave={() => setFlipped(false)}
-      onClick={() => setFlipped((f) => !f)}
+      className="relative cursor-pointer rounded-2xl overflow-hidden shadow-sm"
+      style={{ height: "280px" }}
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
+      onClick={() => setActive((v) => !v)}
     >
+      {/* Background image — always mounted, fades in */}
       <div
-        style={{
-          position: "relative",
-          width: "100%",
-          height: "100%",
-          transformStyle: "preserve-3d",
-          transition: "transform 0.6s ease",
-          transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
-        }}
+        className="absolute inset-0 transition-opacity duration-[400ms] ease-in-out"
+        style={{ opacity: active ? 1 : 0 }}
       >
-        {/* FRONT */}
-        <div
-          className="absolute inset-0 bg-white rounded-2xl shadow-sm flex flex-col items-center justify-center gap-4 px-6"
-          style={{ backfaceVisibility: "hidden" }}
-        >
-          <div
-            className="w-16 h-16 rounded-full border-2 flex items-center justify-center"
-            style={{ borderColor: "#E53E3E", color: "#E53E3E" }}
-          >
-            {card.icon}
-          </div>
-          <p className="font-semibold text-[#1A202C] text-center text-base">
-            {card.label}
-          </p>
-          <p className="text-xs text-gray-400 mt-1">Hover to reveal</p>
-        </div>
-
-        {/* BACK */}
-        <div
-          className="absolute inset-0 rounded-2xl overflow-hidden flex items-center justify-center"
-          style={{
-            backfaceVisibility: "hidden",
-            transform: "rotateY(180deg)",
-          }}
-        >
-          <Image
-            src={card.image}
-            alt={card.label}
-            fill
-            className="object-cover"
-          />
-          <div
-            className="absolute inset-0"
-            style={{ backgroundColor: "rgba(26, 32, 44, 0.60)" }}
-          />
-          <p className="relative z-10 text-white text-sm font-medium text-center leading-relaxed px-6">
+        <Image src={card.image} alt={card.label} fill className="object-cover" />
+        <div className="absolute inset-0" style={{ backgroundColor: "rgba(26, 32, 44, 0.60)" }} />
+        <div className="absolute inset-0 flex items-center justify-center px-6">
+          <p className="text-white text-sm font-medium text-center leading-relaxed">
             {card.backText}
           </p>
         </div>
+      </div>
+
+      {/* Front — fades out */}
+      <div
+        className="absolute inset-0 bg-white flex flex-col items-center justify-center gap-4 px-6 transition-opacity duration-[400ms] ease-in-out"
+        style={{ opacity: active ? 0 : 1 }}
+      >
+        <div
+          className="w-16 h-16 rounded-full border-2 flex items-center justify-center"
+          style={{ borderColor: "#E53E3E", color: "#E53E3E" }}
+        >
+          {card.icon}
+        </div>
+        <p className="font-semibold text-[#1A202C] text-center text-base">{card.label}</p>
+        <p className="text-xs text-gray-400">Hover to reveal</p>
       </div>
     </div>
   );
@@ -190,10 +166,10 @@ export default function TheProblem() {
           </p>
         </div>
 
-        {/* Flip cards */}
+        {/* Fade cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
           {problemCards.map((card, i) => (
-            <FlipCard key={card.label} card={card} index={i} />
+            <FadeCard key={card.label} card={card} index={i} />
           ))}
         </div>
 
