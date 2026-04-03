@@ -6,9 +6,8 @@ import Image from "next/image";
 const problemCards = [
   {
     label: "Embedded Pathogens",
+    description: "Bacteria survive deep in surfaces long after routine cleaning.",
     image: "/images/germs_microscope.jpg",
-    backText:
-      "Invisible to the naked eye, bacteria and pathogens embed deep into surfaces — surviving routine cleaning for months.",
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="3" strokeWidth={2} />
@@ -18,9 +17,8 @@ const problemCards = [
   },
   {
     label: "Limescale Buildup",
+    description: "Mineral deposits corrode fixtures and breed harmful microorganisms.",
     image: "/images/Limescale_Buildup.jpg",
-    backText:
-      "Mineral deposits harden over time, corroding fixtures and creating the perfect breeding ground for harmful microorganisms.",
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2C8 8 5 12 5 16a7 7 0 0014 0c0-4-3-8-7-14z" />
@@ -29,9 +27,8 @@ const problemCards = [
   },
   {
     label: "Grease",
+    description: "Grease penetrates floors and grout, attracting bacteria and creating persistent hazards.",
     image: "/images/Grease.jpg",
-    backText:
-      "Industrial grease penetrates grout and flooring, attracting bacteria and creating slip hazards your daily crew can't fully remove.",
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
@@ -43,25 +40,36 @@ const problemCards = [
 
 function ThreatCard({ card }: { card: typeof problemCards[0] }) {
   return (
-    <div className="relative rounded-2xl overflow-hidden shadow-md" style={{ height: "280px" }}>
-      <Image src={card.image} alt={card.label} fill className="object-cover" />
-      {/* Gradient overlay — darker at bottom for text legibility */}
+    <div className="relative rounded-2xl overflow-hidden shadow-md group" style={{ height: "280px" }}>
+      {/* Background image — zooms on hover */}
+      <div className="absolute inset-0 transition-transform duration-[600ms] ease-in-out group-hover:scale-[1.08]">
+        <Image src={card.image} alt={card.label} fill className="object-cover" />
+      </div>
+
+      {/* Base gradient — lightens slightly on hover */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 transition-opacity duration-[600ms] ease-in-out group-hover:opacity-80"
         style={{
-          background: "linear-gradient(to bottom, rgba(26,32,44,0.35) 0%, rgba(26,32,44,0.75) 100%)",
+          background: "linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.70) 100%)",
         }}
       />
-      {/* Icon + label centered */}
-      <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6">
-        <div
-          className="w-16 h-16 rounded-full border-2 border-white flex items-center justify-center text-white"
-        >
+
+      {/* Icon top-center + label + description bottom */}
+      <div className="absolute inset-0 flex flex-col items-center justify-between px-5 py-6">
+        {/* Icon */}
+        <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center text-white mt-2">
           {card.icon}
         </div>
-        <p className="text-white font-bold text-lg text-center tracking-wide drop-shadow-md">
-          {card.label}
-        </p>
+
+        {/* Label + description pinned to bottom */}
+        <div className="text-center">
+          <p className="text-white font-bold text-lg tracking-wide drop-shadow-md mb-1">
+            {card.label}
+          </p>
+          <p className="text-white text-sm leading-snug drop-shadow-md opacity-90">
+            {card.description}
+          </p>
+        </div>
       </div>
     </div>
   );
