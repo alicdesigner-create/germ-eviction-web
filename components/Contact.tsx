@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 
 const serviceOptions = [
   "Restroom Reset",
@@ -20,6 +21,19 @@ export default function Contact() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const bgImgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (!sectionRef.current || !bgImgRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const centerOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
+      bgImgRef.current.style.transform = `translateY(${centerOffset * 0.1}px) scale(1.1)`;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
@@ -33,8 +47,28 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" style={{ backgroundColor: "#2ABFBF" }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <section ref={sectionRef} id="contact" className="relative overflow-hidden">
+      {/* Parallax background image */}
+      <div
+        ref={bgImgRef}
+        className="absolute inset-0 scale-110 will-change-transform origin-center"
+        aria-hidden="true"
+      >
+        <Image
+          src="/images/wall-wash.jpg"
+          alt=""
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      {/* Teal overlay — keeps brand color */}
+      <div
+        className="absolute inset-0"
+        style={{ backgroundColor: "rgba(42, 191, 191, 0.82)" }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         {/* Header */}
         <div className="text-center mb-14">
           <p className="text-xs uppercase tracking-[0.2em] font-semibold text-white/60 mb-3">
