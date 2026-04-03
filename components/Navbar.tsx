@@ -58,7 +58,7 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <a
               href="#contact"
-              className="hidden md:inline-block bg-[#E53E3E] hover:bg-red-700 text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors"
+              className="hidden md:inline-block bg-[#2ABFBF] hover:bg-[#1fa8a8] text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors"
             >
               Schedule a Reset
             </a>
