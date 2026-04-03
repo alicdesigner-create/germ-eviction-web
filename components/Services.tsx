@@ -135,8 +135,7 @@ export default function Services() {
           {services.map((svc) => (
             <div
               key={svc.title}
-              className="group rounded-2xl p-8 border border-transparent hover:border-[#2ABFBF] transition-all duration-300"
-              style={{ backgroundColor: "#2D3748" }}
+              className="group rounded-2xl p-8 border border-transparent hover:border-[#2ABFBF] transition-all duration-300 bg-white"
             >
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
@@ -144,8 +143,8 @@ export default function Services() {
               >
                 {svc.icon}
               </div>
-              <h3 className="text-white font-bold text-xl mb-3">{svc.title}</h3>
-              <p className="text-gray-400 leading-relaxed text-base">{svc.description}</p>
+              <h3 className="font-bold text-xl mb-3" style={{ color: "#2ABFBF" }}>{svc.title}</h3>
+              <p className="text-gray-700 leading-relaxed text-base">{svc.description}</p>
             </div>
           ))}
         </div>
