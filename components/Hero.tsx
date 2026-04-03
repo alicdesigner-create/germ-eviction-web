@@ -39,12 +39,7 @@ export default function Hero() {
       {/* Dark overlay */}
       <div
         className="absolute inset-0"
-        style={{ backgroundColor: "rgba(26, 32, 44, 0.62)" }}
-      />
-      {/* Teal brand overlay */}
-      <div
-        className="absolute inset-0"
-        style={{ backgroundColor: "rgba(42, 191, 191, 0.18)" }}
+        style={{ backgroundColor: "rgba(26, 32, 44, 0.80)" }}
       />
 
       {/* Content */}
