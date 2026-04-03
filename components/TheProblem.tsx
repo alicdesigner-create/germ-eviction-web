@@ -41,11 +41,39 @@ const problemCards = [
   },
 ];
 
-function FlipCard({ card }: { card: typeof problemCards[0] }) {
+function FlipCard({ card, index }: { card: typeof problemCards[0]; index: number }) {
   const [flipped, setFlipped] = useState(false);
+  const [autoFlipped, setAutoFlipped] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (autoFlipped) return;
+    const el = cardRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          observer.disconnect();
+          const stagger = index * 300;
+          // flip to back
+          setTimeout(() => setFlipped(true), stagger);
+          // flip back to front
+          setTimeout(() => {
+            setFlipped(false);
+            setAutoFlipped(true);
+          }, stagger + 2000);
+        }
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [autoFlipped, index]);
 
   return (
     <div
+      ref={cardRef}
       className="cursor-pointer"
       style={{ perspective: "1000px", height: "280px" }}
       onMouseEnter={() => setFlipped(true)}
@@ -164,8 +192,8 @@ export default function TheProblem() {
 
         {/* Flip cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
-          {problemCards.map((card) => (
-            <FlipCard key={card.label} card={card} />
+          {problemCards.map((card, i) => (
+            <FlipCard key={card.label} card={card} index={i} />
           ))}
         </div>
 
