@@ -21,22 +21,21 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background image with parallax */}
+      {/* Background video with parallax */}
       <div
         ref={bgRef}
         className="absolute inset-0 will-change-transform"
         aria-hidden="true"
       >
-        {/* Slow zoom animation — separate from parallax to avoid transform conflicts */}
-        <div className="absolute inset-0 animate-slow-zoom origin-center">
-          <Image
-            src="/images/hero-blacklight.jpg"
-            alt="Commercial facility background"
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/toilet-video.mp4" type="video/mp4" />
+        </video>
       </div>
 
       {/* Dark overlay */}
