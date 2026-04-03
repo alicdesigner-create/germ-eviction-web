@@ -42,48 +42,22 @@ const reasons = [
   },
 ];
 
-function StepFlipCard({ step, index }: { step: typeof steps[0]; index: number }) {
-  const [flipped, setFlipped] = useState(false);
-  const [autoFlipped, setAutoFlipped] = useState(false);
+function StepFlipCard({ step, autoFlipped }: { step: typeof steps[0]; autoFlipped: boolean }) {
+  const [localFlipped, setLocalFlipped] = useState(false);
   const [isTouch, setIsTouch] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
 
-  // Detect touch device once on mount
   useEffect(() => {
     setIsTouch(window.matchMedia("(pointer: coarse)").matches);
   }, []);
 
-  // Auto-flip preview on viewport entry (once)
-  useEffect(() => {
-    if (autoFlipped) return;
-    const el = cardRef.current;
-    if (!el) return;
+  const flipped = autoFlipped || localFlipped;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          observer.disconnect();
-          const stagger = index * 300;
-          setTimeout(() => setFlipped(true), stagger);
-          setTimeout(() => {
-            setFlipped(false);
-            setAutoFlipped(true);
-          }, stagger + 2000);
-        }
-      },
-      { threshold: 0.4 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [autoFlipped, index]);
-
-  const handleMouseEnter = () => { if (!isTouch) setFlipped(true); };
-  const handleMouseLeave = () => { if (!isTouch) setFlipped(false); };
-  const handleClick = () => { if (isTouch) setFlipped((f) => !f); };
+  const handleMouseEnter = () => { if (!isTouch) setLocalFlipped(true); };
+  const handleMouseLeave = () => { if (!isTouch) setLocalFlipped(false); };
+  const handleClick = () => { if (isTouch) setLocalFlipped((f) => !f); };
 
   return (
     <div
-      ref={cardRef}
       className="cursor-pointer select-none"
       style={{ perspective: "1000px", height: "320px" }}
       onMouseEnter={handleMouseEnter}
@@ -139,8 +113,23 @@ function StepFlipCard({ step, index }: { step: typeof steps[0]; index: number })
 }
 
 export default function HowItWorks() {
+  const [allFlipped, setAllFlipped] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
   const blobRef = useRef<HTMLDivElement>(null);
+
+  // All cards flip together every 5 seconds
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    const cycle = () => {
+      setAllFlipped(true);
+      timer = setTimeout(() => {
+        setAllFlipped(false);
+        timer = setTimeout(cycle, 5000);
+      }, 5000);
+    };
+    timer = setTimeout(cycle, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -185,8 +174,8 @@ export default function HowItWorks() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-24">
-          {steps.map((step, i) => (
-            <StepFlipCard key={step.number} step={step} index={i} />
+          {steps.map((step) => (
+            <StepFlipCard key={step.number} step={step} autoFlipped={allFlipped} />
           ))}
         </div>
 
