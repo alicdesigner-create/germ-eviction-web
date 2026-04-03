@@ -32,6 +32,8 @@ export default function Hero() {
           muted
           loop
           playsInline
+          preload="auto"
+          poster="/images/hero-blacklight.jpg"
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/toilet-video.mp4" type="video/mp4" />
