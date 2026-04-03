@@ -171,18 +171,29 @@ export default function TheProblem() {
         </div>
 
         {/* Warning card */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-8 max-w-xl mx-auto text-center shadow-sm">
-          <p className="text-gray-700 font-medium text-base mb-3">
-            Don&apos;t let one bad review define your facility&apos;s reputation.
+        <div
+          className="bg-white border-2 border-dashed border-gray-400 rounded-xl p-10 max-w-[480px] mx-auto text-center shadow-sm"
+          style={{ transform: "rotate(-1deg)" }}
+        >
+          <p className="font-bold text-xl text-center mb-3" style={{ color: "#2ABFBF" }}>
+            Don&apos;t let one poor review ruin your business reputation. 👎
+          </p>
+          <p className="font-bold text-3xl text-center mb-3">
+            <span style={{ color: "#4285F4" }}>G</span>
+            <span style={{ color: "#EA4335" }}>o</span>
+            <span style={{ color: "#FBBC05" }}>o</span>
+            <span style={{ color: "#4285F4" }}>g</span>
+            <span style={{ color: "#34A853" }}>l</span>
+            <span style={{ color: "#EA4335" }}>e</span>
           </p>
           <div className="flex justify-center gap-1 mb-4">
-            <span className="text-yellow-400 text-xl">★</span>
-            <span className="text-gray-300 text-xl">★</span>
-            <span className="text-gray-300 text-xl">★</span>
-            <span className="text-gray-300 text-xl">★</span>
-            <span className="text-gray-300 text-xl">★</span>
+            <span className="text-4xl" style={{ color: "#FBBC05" }}>★</span>
+            <span className="text-4xl text-gray-300">★</span>
+            <span className="text-4xl text-gray-300">★</span>
+            <span className="text-4xl text-gray-300">★</span>
+            <span className="text-4xl text-gray-300">★</span>
           </div>
-          <p className="font-extrabold text-lg" style={{ color: "#E53E3E" }}>
+          <p className="font-extrabold text-xl text-center" style={{ color: "#E53E3E" }}>
             We fix what your staff can&apos;t.
           </p>
         </div>
