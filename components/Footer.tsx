@@ -58,7 +58,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm space-y-1">
-          <p>© 2025 Germ Eviction. All rights reserved.</p>
+          <p>© 2026 Germ Eviction. All rights reserved.</p>
           <p>
             Created and designed by{" "}
             <a
