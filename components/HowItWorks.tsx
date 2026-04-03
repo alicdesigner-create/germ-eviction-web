@@ -45,8 +45,15 @@ const reasons = [
 function StepFlipCard({ step, index }: { step: typeof steps[0]; index: number }) {
   const [flipped, setFlipped] = useState(false);
   const [autoFlipped, setAutoFlipped] = useState(false);
+  const [isTouch, setIsTouch] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
+  // Detect touch device once on mount
+  useEffect(() => {
+    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+
+  // Auto-flip preview on viewport entry (once)
   useEffect(() => {
     if (autoFlipped) return;
     const el = cardRef.current;
@@ -70,14 +77,18 @@ function StepFlipCard({ step, index }: { step: typeof steps[0]; index: number })
     return () => observer.disconnect();
   }, [autoFlipped, index]);
 
+  const handleMouseEnter = () => { if (!isTouch) setFlipped(true); };
+  const handleMouseLeave = () => { if (!isTouch) setFlipped(false); };
+  const handleClick = () => { if (isTouch) setFlipped((f) => !f); };
+
   return (
     <div
       ref={cardRef}
-      className="cursor-pointer"
+      className="cursor-pointer select-none"
       style={{ perspective: "1000px", height: "320px" }}
-      onMouseEnter={() => setFlipped(true)}
-      onMouseLeave={() => setFlipped(false)}
-      onClick={() => setFlipped((f) => !f)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
     >
       <div
         style={{
