@@ -124,7 +124,7 @@ export default function Services() {
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-5">
             Deep Cleaning &amp; Specialty Resets
           </h2>
-          <p className="text-gray-400 max-w-xl mx-auto text-base leading-relaxed">
+          <p className="text-gray-200 max-w-xl mx-auto text-base leading-relaxed font-medium">
             One visit is all it takes. We deliver a surgical-level reset your
             regular crew simply can&apos;t match.
           </p>
