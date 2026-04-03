@@ -38,7 +38,7 @@ const reasons = [
   {
     emoji: "💲",
     title: "Cost-Effective Resets",
-    description: "A smarter investment for budgets that can't support nightly cleaning crews.",
+    description: "High-impact specialized resets designed to optimize maintenance costs with long-lasting value.",
   },
 ];
 
