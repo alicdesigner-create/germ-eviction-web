@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 const problemCards = [
@@ -11,7 +14,7 @@ const problemCards = [
     ),
   },
   {
-    label: "Limescale",
+    label: "Limescale Buildup",
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 2C8 8 5 12 5 16a7 7 0 0014 0c0-4-3-8-7-14z" />
@@ -30,19 +33,58 @@ const problemCards = [
 ];
 
 export default function TheProblem() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const blob1Ref = useRef<HTMLDivElement>(null);
+  const blob2Ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const centerOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
+      if (blob1Ref.current) {
+        blob1Ref.current.style.transform = `translateY(${centerOffset * 0.07}px)`;
+      }
+      if (blob2Ref.current) {
+        blob2Ref.current.style.transform = `translateY(${centerOffset * -0.05}px)`;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <section id="problem" className="bg-gray-50">
+    <section ref={sectionRef} id="problem" className="bg-gray-50 relative overflow-hidden">
+      {/* Parallax decorative blobs */}
+      <div
+        ref={blob1Ref}
+        className="absolute -right-40 top-10 w-[480px] h-[480px] rounded-full will-change-transform pointer-events-none"
+        style={{ backgroundColor: "#2ABFBF", opacity: 0.04 }}
+        aria-hidden="true"
+      />
+      <div
+        ref={blob2Ref}
+        className="absolute -left-32 bottom-20 w-80 h-80 rounded-full will-change-transform pointer-events-none"
+        style={{ backgroundColor: "#E53E3E", opacity: 0.04 }}
+        aria-hidden="true"
+      />
+
       {/* Section 1 */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1A202C] mb-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+        <div className="text-center mb-14">
+          <p
+            className="text-xs uppercase tracking-[0.2em] font-semibold mb-3"
+            style={{ color: "#E53E3E" }}
+          >
+            The Reality
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1A202C] mb-5">
             Your staff maintains. We Deep Reset.
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-            Nightly janitorial cleaning is designed for the surface, but germs
-            live in the depths. Over time, standard maintenance isn&apos;t
-            enough to stop the buildup of industrial grease, limescale, and
-            deep-seated pathogens.
+            Nightly janitorial cleaning is designed for the surface — germs live
+            in the depths. Over time, standard maintenance can&apos;t stop the
+            buildup of industrial grease, limescale, and embedded pathogens.
           </p>
         </div>
 
@@ -51,7 +93,7 @@ export default function TheProblem() {
           {problemCards.map((card) => (
             <div
               key={card.label}
-              className="flex flex-col items-center gap-4 bg-white rounded-2xl p-8 shadow-sm"
+              className="flex flex-col items-center gap-4 bg-white rounded-2xl p-9 shadow-sm"
             >
               <div
                 className="w-16 h-16 rounded-full border-2 flex items-center justify-center"
@@ -59,24 +101,28 @@ export default function TheProblem() {
               >
                 {card.icon}
               </div>
-              <p className="font-semibold text-[#1A202C] text-center">{card.label}</p>
+              <p className="font-semibold text-[#1A202C] text-center text-base">
+                {card.label}
+              </p>
             </div>
           ))}
         </div>
 
         {/* Teal callout */}
         <div
-          className="rounded-2xl p-6 text-center text-white font-semibold text-lg"
+          className="rounded-2xl px-8 py-7 text-center text-white"
           style={{ backgroundColor: "#2ABFBF" }}
         >
-          Surgical-level deep clean that removes what shouldn&apos;t be there.
+          <p className="font-bold text-xl tracking-wide">
+            Surgical-level deep clean that removes what shouldn&apos;t be there.
+          </p>
         </div>
       </div>
 
       {/* Section 2 */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <div className="text-center mb-10">
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-[#1A202C] mb-2">
+          <h3 className="text-2xl sm:text-3xl font-extrabold text-[#1A202C] mb-3">
             When basic cleaning{" "}
             <span style={{ color: "#E53E3E" }}>isn&apos;t enough</span>
           </h3>
@@ -96,16 +142,16 @@ export default function TheProblem() {
                 src={`/images/${n}.jpeg`}
                 alt={`Facility condition ${n}`}
                 fill
-                className="object-cover transition-transform duration-300 group-hover:scale-110"
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
             </div>
           ))}
         </div>
 
         {/* Warning card */}
-        <div className="bg-white border border-gray-200 rounded-2xl p-6 max-w-xl mx-auto text-center shadow-sm">
-          <p className="text-gray-700 font-medium mb-3">
-            Don&apos;t let one poor review ruin your business reputation 👎
+        <div className="bg-white border border-gray-200 rounded-2xl p-8 max-w-xl mx-auto text-center shadow-sm">
+          <p className="text-gray-700 font-medium text-base mb-3">
+            Don&apos;t let one bad review define your facility&apos;s reputation.
           </p>
           <div className="flex justify-center gap-1 mb-4">
             <span className="text-yellow-400 text-xl">★</span>

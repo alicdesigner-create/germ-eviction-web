@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
 const services = [
   {
     title: "Restroom Reset",
@@ -42,18 +46,52 @@ const services = [
 ];
 
 export default function Services() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const blob1Ref = useRef<HTMLDivElement>(null);
+  const blob2Ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => {
+      if (!sectionRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const centerOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
+      if (blob1Ref.current) {
+        blob1Ref.current.style.transform = `translateY(${centerOffset * 0.09}px)`;
+      }
+      if (blob2Ref.current) {
+        blob2Ref.current.style.transform = `translateY(${centerOffset * -0.06}px)`;
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <section id="services" style={{ backgroundColor: "#1A202C" }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+    <section ref={sectionRef} id="services" style={{ backgroundColor: "#1A202C" }} className="relative overflow-hidden">
+      {/* Parallax decorative orbs */}
+      <div
+        ref={blob1Ref}
+        className="absolute -left-24 top-1/4 w-72 h-72 rounded-full will-change-transform pointer-events-none"
+        style={{ backgroundColor: "#2ABFBF", opacity: 0.06 }}
+        aria-hidden="true"
+      />
+      <div
+        ref={blob2Ref}
+        className="absolute -right-20 bottom-1/4 w-96 h-96 rounded-full will-change-transform pointer-events-none"
+        style={{ backgroundColor: "#2ABFBF", opacity: 0.04 }}
+        aria-hidden="true"
+      />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-14">
           <p
-            className="text-xs uppercase tracking-widest font-semibold mb-2"
+            className="text-xs uppercase tracking-[0.2em] font-semibold mb-3"
             style={{ color: "#2ABFBF" }}
           >
             What We Do
           </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-5">
             Deep Cleaning &amp; Specialty Resets
           </h2>
           <p className="text-gray-400 max-w-xl mx-auto text-base leading-relaxed">
@@ -63,7 +101,7 @@ export default function Services() {
         </div>
 
         {/* Service cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-14">
           {services.map((svc) => (
             <div
               key={svc.title}
@@ -71,13 +109,13 @@ export default function Services() {
               style={{ backgroundColor: "#2D3748" }}
             >
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+                className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
                 style={{ backgroundColor: "rgba(42,191,191,0.15)", color: "#2ABFBF" }}
               >
                 {svc.icon}
               </div>
-              <h3 className="text-white font-bold text-xl mb-2">{svc.title}</h3>
-              <p className="text-gray-400 leading-relaxed">{svc.description}</p>
+              <h3 className="text-white font-bold text-xl mb-3">{svc.title}</h3>
+              <p className="text-gray-400 leading-relaxed text-base">{svc.description}</p>
             </div>
           ))}
         </div>
@@ -86,10 +124,11 @@ export default function Services() {
         <div className="text-center">
           <a
             href="#contact"
-            className="inline-block bg-[#E53E3E] hover:bg-red-700 text-white px-10 py-4 rounded-full text-base font-semibold transition-colors"
+            className="inline-block bg-[#E53E3E] hover:bg-red-700 text-white px-10 py-4 rounded-full text-base font-semibold transition-colors mb-3"
           >
             Get a Free Assessment
           </a>
+          <p className="text-gray-500 text-sm mt-3">No obligation. No contracts.</p>
         </div>
       </div>
     </section>
