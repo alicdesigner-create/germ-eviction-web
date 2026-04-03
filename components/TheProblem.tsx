@@ -82,7 +82,7 @@ export default function TheProblem() {
             Your staff maintains. We Deep Reset.
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-            Nightly janitorial cleaning is designed for the surface — germs live
+            Normal cleaning is designed for the surface — germs live
             in the depths. Over time, standard maintenance can&apos;t stop the
             buildup of industrial grease, limescale, and embedded pathogens.
           </p>
