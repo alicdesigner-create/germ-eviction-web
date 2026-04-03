@@ -24,16 +24,19 @@ export default function Hero() {
       {/* Background image with parallax */}
       <div
         ref={bgRef}
-        className="absolute inset-0 scale-110 will-change-transform origin-center"
+        className="absolute inset-0 will-change-transform"
         aria-hidden="true"
       >
-        <Image
-          src="/images/hero-blacklight.jpg"
-          alt="Commercial facility background"
-          fill
-          className="object-cover"
-          priority
-        />
+        {/* Slow zoom animation — separate from parallax to avoid transform conflicts */}
+        <div className="absolute inset-0 animate-slow-zoom origin-center">
+          <Image
+            src="/images/hero-blacklight.jpg"
+            alt="Commercial facility background"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
       </div>
 
       {/* Dark overlay */}
