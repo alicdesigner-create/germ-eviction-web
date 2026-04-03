@@ -5,6 +5,7 @@ import Image from "next/image";
 
 export default function Hero() {
   const bgRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const onScroll = () => {
@@ -14,6 +15,12 @@ export default function Hero() {
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = 0.35;
+    }
   }, []);
 
   return (
@@ -28,6 +35,7 @@ export default function Hero() {
         aria-hidden="true"
       >
         <video
+          ref={videoRef}
           autoPlay
           muted
           loop
