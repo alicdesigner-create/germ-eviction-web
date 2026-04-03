@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 const problemCards = [
@@ -41,76 +41,36 @@ const problemCards = [
   },
 ];
 
-function FadeCard({ card, isActive }: { card: typeof problemCards[0]; isActive: boolean }) {
-  const [hovered, setHovered] = useState(false);
-  const active = isActive || hovered;
-
+function ThreatCard({ card }: { card: typeof problemCards[0] }) {
   return (
-    <div
-      className="relative cursor-pointer rounded-2xl overflow-hidden shadow-sm"
-      style={{ height: "280px" }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {/* Background image — fades in */}
+    <div className="relative rounded-2xl overflow-hidden shadow-md" style={{ height: "280px" }}>
+      <Image src={card.image} alt={card.label} fill className="object-cover" />
+      {/* Gradient overlay — darker at bottom for text legibility */}
       <div
-        className="absolute inset-0 transition-opacity duration-[600ms] ease-in-out"
-        style={{ opacity: active ? 1 : 0 }}
-      >
-        <Image src={card.image} alt={card.label} fill className="object-cover" />
-        <div className="absolute inset-0" style={{ backgroundColor: "rgba(26, 32, 44, 0.60)" }} />
-        <div className="absolute inset-0 flex items-center justify-center px-6">
-          <p className="text-white text-sm font-medium text-center leading-relaxed">
-            {card.backText}
-          </p>
-        </div>
-      </div>
-
-      {/* Front — fades out */}
-      <div
-        className="absolute inset-0 bg-white flex flex-col items-center justify-center gap-4 px-6 transition-opacity duration-[600ms] ease-in-out"
-        style={{ opacity: active ? 0 : 1 }}
-      >
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(to bottom, rgba(26,32,44,0.35) 0%, rgba(26,32,44,0.75) 100%)",
+        }}
+      />
+      {/* Icon + label centered */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 px-6">
         <div
-          className="w-16 h-16 rounded-full border-2 flex items-center justify-center"
-          style={{ borderColor: "#E53E3E", color: "#E53E3E" }}
+          className="w-16 h-16 rounded-full border-2 border-white flex items-center justify-center text-white"
         >
           {card.icon}
         </div>
-        <p className="font-semibold text-[#1A202C] text-center text-base">{card.label}</p>
+        <p className="text-white font-bold text-lg text-center tracking-wide drop-shadow-md">
+          {card.label}
+        </p>
       </div>
     </div>
   );
 }
 
 export default function TheProblem() {
-  const [activeCard, setActiveCard] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const blob1Ref = useRef<HTMLDivElement>(null);
   const blob2Ref = useRef<HTMLDivElement>(null);
-
-  // Sequential left → right loop
-  useEffect(() => {
-    const BACK_MS = 4500;   // time showing the back (enough to read)
-    const PAUSE_MS = 1000;  // pause on front before next card
-    const TOTAL = problemCards.length;
-    let current = 0;
-    let timer: ReturnType<typeof setTimeout>;
-
-    const showNext = () => {
-      setActiveCard(current);
-      timer = setTimeout(() => {
-        setActiveCard(null);
-        timer = setTimeout(() => {
-          current = (current + 1) % TOTAL;
-          showNext();
-        }, PAUSE_MS);
-      }, BACK_MS);
-    };
-
-    timer = setTimeout(showNext, 800);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -165,8 +125,8 @@ export default function TheProblem() {
 
         {/* Fade cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
-          {problemCards.map((card, i) => (
-            <FadeCard key={card.label} card={card} isActive={activeCard === i} />
+          {problemCards.map((card) => (
+            <ThreatCard key={card.label} card={card} />
           ))}
         </div>
 
