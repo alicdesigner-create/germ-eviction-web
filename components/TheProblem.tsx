@@ -43,44 +43,36 @@ const problemCards = [
 
 function FadeCard({ card, index }: { card: typeof problemCards[0]; index: number }) {
   const [active, setActive] = useState(false);
-  const [autoShown, setAutoShown] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const isHoveredRef = useRef(false);
+  const phaseRef = useRef(false);
 
   useEffect(() => {
-    if (autoShown) return;
-    const el = cardRef.current;
-    if (!el) return;
+    const BACK_MS = 2400;   // time showing the back side
+    const FRONT_MS = 2800;  // time showing the front side
+    let timer: ReturnType<typeof setTimeout>;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          observer.disconnect();
-          const stagger = index * 300;
-          setTimeout(() => setActive(true), stagger);
-          setTimeout(() => {
-            setActive(false);
-            setAutoShown(true);
-          }, stagger + 2000);
-        }
-      },
-      { threshold: 0.4 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [autoShown, index]);
+    const next = () => {
+      phaseRef.current = !phaseRef.current;
+      if (!isHoveredRef.current) setActive(phaseRef.current);
+      timer = setTimeout(next, phaseRef.current ? BACK_MS : FRONT_MS);
+    };
+
+    // Stagger each card so they don't all flip simultaneously
+    timer = setTimeout(next, index * 1300);
+    return () => clearTimeout(timer);
+  }, [index]);
 
   return (
     <div
-      ref={cardRef}
       className="relative cursor-pointer rounded-2xl overflow-hidden shadow-sm"
       style={{ height: "280px" }}
-      onMouseEnter={() => setActive(true)}
-      onMouseLeave={() => setActive(false)}
+      onMouseEnter={() => { isHoveredRef.current = true; setActive(true); }}
+      onMouseLeave={() => { isHoveredRef.current = false; setActive(phaseRef.current); }}
       onClick={() => setActive((v) => !v)}
     >
-      {/* Background image — always mounted, fades in */}
+      {/* Background image — fades in */}
       <div
-        className="absolute inset-0 transition-opacity duration-[400ms] ease-in-out"
+        className="absolute inset-0 transition-opacity duration-[600ms] ease-in-out"
         style={{ opacity: active ? 1 : 0 }}
       >
         <Image src={card.image} alt={card.label} fill className="object-cover" />
@@ -94,7 +86,7 @@ function FadeCard({ card, index }: { card: typeof problemCards[0]; index: number
 
       {/* Front — fades out */}
       <div
-        className="absolute inset-0 bg-white flex flex-col items-center justify-center gap-4 px-6 transition-opacity duration-[400ms] ease-in-out"
+        className="absolute inset-0 bg-white flex flex-col items-center justify-center gap-4 px-6 transition-opacity duration-[600ms] ease-in-out"
         style={{ opacity: active ? 0 : 1 }}
       >
         <div
@@ -104,7 +96,6 @@ function FadeCard({ card, index }: { card: typeof problemCards[0]; index: number
           {card.icon}
         </div>
         <p className="font-semibold text-[#1A202C] text-center text-base">{card.label}</p>
-        <p className="text-xs text-gray-400">Hover to reveal</p>
       </div>
     </div>
   );
