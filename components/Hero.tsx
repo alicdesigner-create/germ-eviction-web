@@ -39,7 +39,12 @@ export default function Hero() {
       {/* Dark overlay */}
       <div
         className="absolute inset-0"
-        style={{ backgroundColor: "rgba(26, 32, 44, 0.72)" }}
+        style={{ backgroundColor: "rgba(26, 32, 44, 0.62)" }}
+      />
+      {/* Teal brand overlay */}
+      <div
+        className="absolute inset-0"
+        style={{ backgroundColor: "rgba(42, 191, 191, 0.18)" }}
       />
 
       {/* Content */}
@@ -96,7 +101,7 @@ export default function Hero() {
             className="border-2 px-9 py-4 rounded-full text-base font-semibold transition-colors hover:bg-white hover:text-[#1A202C]"
             style={{ borderColor: "#2ABFBF", color: "#2ABFBF" }}
           >
-            Our Services
+            The Solution
           </a>
         </div>
       </div>
