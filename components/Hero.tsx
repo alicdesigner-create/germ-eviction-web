@@ -88,19 +88,6 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-6 py-28">
-        {/* Logo */}
-        <div className="flex justify-center mb-8">
-          <Image
-            src="/images/Germevictionlogo.png"
-            alt="Germ Eviction"
-            width={220}
-            height={66}
-            className="object-contain"
-            style={{ filter: "brightness(0) invert(1)" }}
-            priority
-          />
-        </div>
-
         {/* Label */}
         <p
           className="text-xs uppercase tracking-[0.2em] font-semibold mb-5"
@@ -130,17 +117,17 @@ export default function Hero() {
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
+            href="#services"
+            className="bg-white hover:bg-gray-100 text-[#1A202C] px-9 py-4 rounded-full text-base font-semibold transition-colors"
+          >
+            The Solution
+          </a>
+          <a
             href="#contact"
             className="bg-white hover:bg-gray-100 px-9 py-4 rounded-full text-base font-semibold transition-colors"
             style={{ color: "#2ABFBF" }}
           >
             Schedule Your Deep Reset
-          </a>
-          <a
-            href="#services"
-            className="bg-white hover:bg-gray-100 text-[#1A202C] px-9 py-4 rounded-full text-base font-semibold transition-colors"
-          >
-            The Solution
           </a>
         </div>
       </div>
