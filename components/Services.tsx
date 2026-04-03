@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 const services = [
   {
@@ -47,6 +48,7 @@ const services = [
 
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
+  const bgImgRef = useRef<HTMLDivElement>(null);
   const blob1Ref = useRef<HTMLDivElement>(null);
   const blob2Ref = useRef<HTMLDivElement>(null);
 
@@ -55,6 +57,9 @@ export default function Services() {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const centerOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
+      if (bgImgRef.current) {
+        bgImgRef.current.style.transform = `translateY(${centerOffset * 0.12}px) scale(1.1)`;
+      }
       if (blob1Ref.current) {
         blob1Ref.current.style.transform = `translateY(${centerOffset * 0.09}px)`;
       }
@@ -67,7 +72,28 @@ export default function Services() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="services" style={{ backgroundColor: "#1A202C" }} className="relative overflow-hidden">
+    <section ref={sectionRef} id="services" className="relative overflow-hidden">
+      {/* Parallax background image */}
+      <div
+        ref={bgImgRef}
+        className="absolute inset-0 scale-110 will-change-transform origin-center"
+        aria-hidden="true"
+      >
+        <Image
+          src="/images/modern-stainless-steel-kitchen.jpg"
+          alt=""
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
+
+      {/* Dark overlay */}
+      <div
+        className="absolute inset-0"
+        style={{ backgroundColor: "rgba(26, 32, 44, 0.88)" }}
+      />
+
       {/* Parallax decorative orbs */}
       <div
         ref={blob1Ref}
