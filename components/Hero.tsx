@@ -69,7 +69,7 @@ export default function Hero() {
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-5">
           One Visit.
           <br />
-          <span style={{ color: "#E53E3E" }}>Total Disinfect.</span>
+          <span style={{ color: "#2ABFBF" }}>Total Disinfect.</span>
         </h1>
 
         {/* Subline */}
