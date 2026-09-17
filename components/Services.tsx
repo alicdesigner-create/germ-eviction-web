@@ -37,6 +37,7 @@ const items = [
   },
   {
     title: "Showers",
+    image: "/images/1.jpeg",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 4a3 3 0 016 0v3H9V4z" />
@@ -65,6 +66,7 @@ const items = [
   },
   {
     title: "Dispensers",
+    image: "/images/7.jpeg",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <rect x="7" y="8" width="10" height="13" rx="1.5" strokeWidth={2} />
@@ -74,6 +76,7 @@ const items = [
   },
   {
     title: "Urinals",
+    image: "/images/germs_microscope.jpg",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3h6v3a2 2 0 002 2v3c0 5-2.5 6-3 8.5a2 2 0 01-2 1.5 2 2 0 01-2-1.5C9.5 17 7 16 7 11V8a2 2 0 002-2V3z" />
@@ -82,6 +85,7 @@ const items = [
   },
   {
     title: "Vents",
+    image: "/images/Grease.jpg",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <rect x="4" y="5" width="16" height="14" rx="2" strokeWidth={2} />
@@ -149,60 +153,51 @@ export default function Services() {
           </p>
         </div>
 
-        {/* 3x3 icon grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
-          {items.map((item) =>
-            item.image ? (
-              <div
-                key={item.title}
-                className="group relative overflow-hidden rounded-2xl shadow-sm"
-                style={{ height: "220px" }}
-              >
-                <div className="absolute inset-0 transition-transform duration-[600ms] ease-in-out group-hover:scale-[1.08]">
-                  <Image src={item.image} alt={item.title} fill className="object-cover" />
+        {/* 3x3 before/after grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+          {items.map((item) => (
+            <div
+              key={item.title}
+              className="rounded-2xl overflow-hidden shadow-sm bg-white"
+            >
+              <div className="flex" style={{ height: "160px" }}>
+                {/* Before */}
+                <div className="relative w-1/2 overflow-hidden">
+                  <Image src={item.image} alt={`${item.title} before`} fill className="object-cover" />
+                  <span className="absolute top-2 left-2 bg-white/90 text-[#1A202C] text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full">
+                    Before
+                  </span>
                 </div>
+                {/* After placeholder */}
                 <div
-                  className="absolute inset-0"
-                  style={{
-                    background: "linear-gradient(to bottom, rgba(16,27,46,0.25) 0%, rgba(16,27,46,0.85) 100%)",
-                  }}
-                />
-                <div className="absolute inset-0 flex flex-col items-center justify-between px-4 py-6">
-                  <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center"
-                    style={{ backgroundColor: "rgba(182,255,61,0.15)", color: "#B6FF3D" }}
-                  >
-                    {item.icon}
-                  </div>
-                  <div>
-                    <h3 className="font-bold text-lg text-white drop-shadow-md">{item.title}</h3>
-                    {item.subtitle && (
-                      <p className="text-gray-200 text-sm drop-shadow-md">{item.subtitle}</p>
-                    )}
-                  </div>
+                  className="relative w-1/2 flex flex-col items-center justify-center gap-1.5 border-l-2 border-dashed"
+                  style={{ borderColor: "#B6FF3D", backgroundColor: "#1A202C" }}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="#B6FF3D" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7h3l1.5-2h7L17 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z" />
+                    <circle cx="12" cy="13" r="3.5" strokeWidth={2} />
+                  </svg>
+                  <span className="text-[10px] font-bold uppercase tracking-wide text-gray-400">
+                    After — Coming Soon
+                  </span>
                 </div>
               </div>
-            ) : (
-              <div
-                key={item.title}
-                className="group flex flex-col items-center text-center gap-3 rounded-2xl p-6 sm:p-8 border-2 border-transparent hover:border-[#B6FF3D] bg-white shadow-sm transition-all duration-300"
-                style={{ height: "220px", justifyContent: "center" }}
-              >
+              <div className="flex items-center gap-3 p-4">
                 <div
-                  className="w-14 h-14 rounded-xl flex items-center justify-center"
+                  className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: "#1A202C", color: "#B6FF3D" }}
                 >
                   {item.icon}
                 </div>
                 <div>
-                  <h3 className="font-bold text-lg text-[#1A202C]">{item.title}</h3>
+                  <h3 className="font-bold text-base text-[#1A202C] leading-tight">{item.title}</h3>
                   {item.subtitle && (
-                    <p className="text-gray-500 text-sm">{item.subtitle}</p>
+                    <p className="text-gray-500 text-xs">{item.subtitle}</p>
                   )}
                 </div>
               </div>
-            )
-          )}
+            </div>
+          ))}
         </div>
       </div>
     </section>

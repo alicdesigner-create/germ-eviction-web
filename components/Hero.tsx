@@ -1,91 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 export default function Hero() {
-  const bgRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Parallax on scroll
-  useEffect(() => {
-    const onScroll = () => {
-      if (bgRef.current) {
-        bgRef.current.style.transform = `translateY(${window.scrollY * 0.35}px) scale(1.1)`;
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Slow playback + smooth loop fade via requestAnimationFrame
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    video.playbackRate = 0.35;
-
-    const FADE = 0.7; // seconds of video time to fade in/out
-    let rafId: number;
-
-    const tick = () => {
-      if (video.duration && !video.paused) {
-        const t = video.currentTime;
-        const remaining = video.duration - t;
-
-        let opacity = 1;
-        if (remaining < FADE) {
-          opacity = remaining / FADE;
-        } else if (t < FADE) {
-          opacity = t / FADE;
-        }
-        video.style.opacity = String(Math.max(0, Math.min(1, opacity)));
-      }
-      rafId = requestAnimationFrame(tick);
-    };
-
-    // Start rAF loop once video is ready
-    const onReady = () => { rafId = requestAnimationFrame(tick); };
-    video.addEventListener("canplay", onReady, { once: true });
-    if (video.readyState >= 3) onReady();
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      video.removeEventListener("canplay", onReady);
-    };
-  }, []);
-
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      style={{ backgroundColor: "#1A202C" }}
     >
-      {/* Background video with parallax */}
-      <div
-        ref={bgRef}
-        className="absolute inset-0 will-change-transform"
-        aria-hidden="true"
-      >
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster="/images/hero-blacklight.jpg"
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/toilet-video.mp4" type="video/mp4" />
-        </video>
-      </div>
-
-      {/* Dark overlay */}
-      <div
-        className="absolute inset-0"
-        style={{ backgroundColor: "rgba(26, 32, 44, 0.86)" }}
-      />
-
       {/* Content */}
       <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-6 py-28">
         {/* Logo */}
