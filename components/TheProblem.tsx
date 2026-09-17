@@ -50,14 +50,17 @@ function ThreatCard({ card }: { card: typeof problemCards[0] }) {
       <div
         className="absolute inset-0 transition-opacity duration-[600ms] ease-in-out group-hover:opacity-80"
         style={{
-          background: "linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.70) 100%)",
+          background: "linear-gradient(to bottom, rgba(16,27,46,0.15) 0%, rgba(16,27,46,0.80) 100%)",
         }}
       />
 
       {/* Icon top-center + label + description bottom */}
       <div className="absolute inset-0 flex flex-col items-center justify-between px-5 py-6">
         {/* Icon */}
-        <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center text-white mt-2">
+        <div
+          className="w-14 h-14 rounded-full border-2 flex items-center justify-center mt-2"
+          style={{ borderColor: "#B6FF3D", color: "#B6FF3D" }}
+        >
           {card.icon}
         </div>
 
@@ -106,32 +109,33 @@ export default function TheProblem() {
       <div
         ref={blob1Ref}
         className="absolute -right-40 top-10 w-[480px] h-[480px] rounded-full will-change-transform pointer-events-none"
-        style={{ backgroundColor: "#2ABFBF", opacity: 0.04 }}
+        style={{ backgroundColor: "#B6FF3D", opacity: 0.06 }}
         aria-hidden="true"
       />
       <div
         ref={blob2Ref}
         className="absolute -left-32 bottom-20 w-80 h-80 rounded-full will-change-transform pointer-events-none"
-        style={{ backgroundColor: "#E53E3E", opacity: 0.04 }}
+        style={{ backgroundColor: "#1A202C", opacity: 0.05 }}
         aria-hidden="true"
       />
 
-      {/* Section 1 */}
-      <div ref={contentRef} className="will-change-transform max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+      <div ref={contentRef} className="will-change-transform max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center mb-14">
           <p
             className="text-xs uppercase tracking-[0.2em] font-semibold mb-3"
-            style={{ color: "#E53E3E" }}
+            style={{ color: "#1A202C" }}
           >
             The Reality
           </p>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1A202C] mb-5">
-            Your staff maintains. We Deep Reset.
+            When Basic Cleaning Isn&apos;t Enough
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-            Normal cleaning is designed for the surface — germs live
-            in the depths. Over time, standard maintenance can&apos;t stop the
-            buildup of industrial grease, limescale, and embedded pathogens.
+            Regular cleaning maintains the surface — but grime settles into
+            grout lines, mineral deposits build up on fixtures, and bacteria
+            collect in the hard-to-reach corners routine cleaning was never
+            designed to reach. Over time, that buildup becomes visible. And it
+            starts to smell.
           </p>
         </div>
 
@@ -142,71 +146,13 @@ export default function TheProblem() {
           ))}
         </div>
 
-        {/* Teal callout */}
+        {/* Callout */}
         <div
-          className="rounded-2xl px-8 py-7 text-center text-white"
-          style={{ backgroundColor: "#2ABFBF" }}
+          className="rounded-2xl px-8 py-7 text-center"
+          style={{ backgroundColor: "#B6FF3D" }}
         >
-          <p className="font-bold text-xl tracking-wide">
-            Surgical-level deep clean that removes what shouldn&apos;t be there.
-          </p>
-        </div>
-      </div>
-
-      {/* Section 2 */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div className="text-center mb-10">
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-[#1A202C] mb-3">
-            When basic cleaning{" "}
-            <span style={{ color: "#E53E3E" }}>isn&apos;t enough</span>
-          </h3>
-          <p className="text-gray-500 text-base">
-            Real facilities. Real buildup. Real consequences.
-          </p>
-        </div>
-
-        {/* Photo grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mb-10">
-          {[1, 2, 3, 4, 5, 6, 7].map((n) => (
-            <div
-              key={n}
-              className="relative aspect-square overflow-hidden rounded-xl group"
-            >
-              <Image
-                src={`/images/${n}.jpeg`}
-                alt={`Facility condition ${n}`}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* Warning card */}
-        <div
-          className="bg-white border-2 border-dashed border-gray-400 rounded-xl p-10 max-w-[480px] mx-auto text-center shadow-sm"
-          style={{ transform: "rotate(-1deg)" }}
-        >
-          <p className="font-bold text-xl text-center mb-3" style={{ color: "#2ABFBF" }}>
-            Don&apos;t let one poor review ruin your business reputation. 👎
-          </p>
-          <p className="font-bold text-3xl text-center mb-3">
-            <span style={{ color: "#4285F4" }}>G</span>
-            <span style={{ color: "#EA4335" }}>o</span>
-            <span style={{ color: "#FBBC05" }}>o</span>
-            <span style={{ color: "#4285F4" }}>g</span>
-            <span style={{ color: "#34A853" }}>l</span>
-            <span style={{ color: "#EA4335" }}>e</span>
-          </p>
-          <div className="flex justify-center gap-1 mb-4">
-            <span className="text-4xl" style={{ color: "#FBBC05" }}>★</span>
-            <span className="text-4xl text-gray-300">★</span>
-            <span className="text-4xl text-gray-300">★</span>
-            <span className="text-4xl text-gray-300">★</span>
-            <span className="text-4xl text-gray-300">★</span>
-          </div>
-          <p className="font-extrabold text-xl text-center" style={{ color: "#E53E3E" }}>
-            We fix what your staff can&apos;t.
+          <p className="font-bold text-xl tracking-wide text-[#1A202C]">
+            Regular cleaning maintains. Germ Eviction delivers the deep reset.
           </p>
         </div>
       </div>

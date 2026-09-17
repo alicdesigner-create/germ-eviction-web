@@ -91,41 +91,29 @@ export default function Hero() {
         {/* Label */}
         <p
           className="text-xs uppercase tracking-[0.2em] font-semibold mb-5"
-          style={{ color: "#2ABFBF" }}
+          style={{ color: "#B6FF3D" }}
         >
-          Deep Cleaning &amp; Specialty Resets
+          Commercial Restroom Deep Cleaning
         </p>
 
         {/* H1 */}
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-5">
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-5">
           One Visit.
           <br />
-          <span style={{ color: "#2ABFBF" }}>Total Disinfect.</span>
+          <span style={{ color: "#B6FF3D" }}>Total Restroom Disinfection!</span>
         </h1>
 
         {/* Subline */}
-        <p className="text-xl sm:text-2xl font-medium text-gray-200 mb-5">
-          Stop letting germs renew their lease.
+        <p className="text-xl sm:text-2xl font-medium text-gray-200 mb-12">
+          When basic cleaning isn&apos;t enough, we go deeper.
         </p>
 
-        {/* Paragraph */}
-        <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto mb-12 leading-relaxed">
-          Your nightly crew handles the surface — we go deeper. Surgical-level
-          disinfection that removes what shouldn&apos;t be there.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
-            href="#services"
-            className="bg-white hover:bg-gray-100 text-[#1A202C] px-9 py-4 rounded-full text-base font-semibold transition-colors"
-          >
-            The Solution
-          </a>
+        {/* CTA */}
+        <div className="flex justify-center">
           <a
             href="#contact"
-            className="bg-white hover:bg-gray-100 px-9 py-4 rounded-full text-base font-semibold transition-colors"
-            style={{ color: "#2ABFBF" }}
+            className="text-[#1A202C] px-9 py-4 rounded-full text-base font-bold uppercase tracking-wide transition-all hover:brightness-90"
+            style={{ backgroundColor: "#B6FF3D" }}
           >
             Schedule Your Deep Reset
           </a>

@@ -3,8 +3,8 @@ import Image from "next/image";
 const navLinks = [
   { href: "#home", label: "Home" },
   { href: "#problem", label: "The Problem" },
-  { href: "#services", label: "The Solution" },
-  { href: "#how-it-works", label: "How It Works" },
+  { href: "#services", label: "What We Clean" },
+  { href: "#before-after", label: "Before & After" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -18,10 +18,9 @@ export default function Footer() {
             <Image
               src="/images/Germevictionlogo.png"
               alt="Germ Eviction"
-              width={160}
-              height={48}
-              className="object-contain"
-              style={{ filter: "brightness(0) invert(1)" }}
+              width={192}
+              height={98}
+              className="object-contain h-16 w-auto"
             />
             <nav className="flex flex-wrap justify-center lg:justify-start gap-4">
               {navLinks.map((link) => (
@@ -48,10 +47,10 @@ export default function Footer() {
             </p>
             <p>
               <a
-                href="mailto:debbie@germeviction.com"
+                href="mailto:info@germeviction.com"
                 className="hover:text-white transition-colors"
               >
-                debbie@germeviction.com
+                info@germeviction.com
               </a>
             </p>
           </div>

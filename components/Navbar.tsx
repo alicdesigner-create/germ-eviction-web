@@ -6,8 +6,8 @@ import Image from "next/image";
 const links = [
   { href: "#home", label: "Home" },
   { href: "#problem", label: "The Problem" },
-  { href: "#services", label: "The Solution" },
-  { href: "#how-it-works", label: "How It Works" },
+  { href: "#services", label: "What We Clean" },
+  { href: "#before-after", label: "Before & After" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -34,9 +34,9 @@ export default function Navbar() {
             <Image
               src="/images/Germevictionlogo.png"
               alt="Germ Eviction"
-              width={160}
-              height={48}
-              className="object-contain"
+              width={192}
+              height={98}
+              className="object-contain h-14 w-auto"
               priority
             />
           </a>
@@ -47,10 +47,10 @@ export default function Navbar() {
               <a
                 key={link.href}
                 href={link.href}
-                className="relative text-[#2ABFBF] hover:text-gray-700 text-sm font-medium transition-colors duration-300 group"
+                className="relative text-[#1A202C] hover:text-gray-600 text-sm font-medium transition-colors duration-300 group"
               >
                 {link.label}
-                <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-[#2ABFBF] transition-all duration-300 group-hover:w-full" />
+                <span className="absolute -bottom-0.5 left-0 h-0.5 w-0 bg-[#B6FF3D] transition-all duration-300 group-hover:w-full" />
               </a>
             ))}
           </div>
@@ -59,13 +59,14 @@ export default function Navbar() {
           <div className="flex items-center gap-3">
             <a
               href="#contact"
-              className="hidden md:inline-block bg-[#2ABFBF] hover:bg-[#1fa8a8] text-white px-5 py-2 rounded-full text-sm font-semibold transition-colors"
+              className="hidden md:inline-block text-[#1A202C] px-5 py-2 rounded-full text-sm font-bold transition-colors hover:brightness-90"
+              style={{ backgroundColor: "#B6FF3D" }}
             >
               Schedule a Reset
             </a>
             <button
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden p-2 rounded-md text-gray-700 hover:text-[#2ABFBF]"
+              className="md:hidden p-2 rounded-md text-gray-700 hover:text-[#1A202C]"
               aria-label="Toggle menu"
             >
               <svg
@@ -103,7 +104,7 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               onClick={() => setMenuOpen(false)}
-              className="block text-gray-700 hover:text-[#2ABFBF] font-medium py-1 transition-colors"
+              className="block text-gray-700 hover:text-[#1A202C] font-medium py-1 transition-colors"
             >
               {link.label}
             </a>
@@ -111,7 +112,8 @@ export default function Navbar() {
           <a
             href="#contact"
             onClick={() => setMenuOpen(false)}
-            className="block bg-[#E53E3E] text-white px-5 py-2 rounded-full text-sm font-semibold text-center mt-2"
+            className="block text-[#1A202C] px-5 py-2 rounded-full text-sm font-bold text-center mt-2"
+            style={{ backgroundColor: "#B6FF3D" }}
           >
             Schedule a Reset
           </a>

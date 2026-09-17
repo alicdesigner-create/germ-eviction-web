@@ -1,46 +1,85 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 
-const services = [
-  {
-    title: "Restroom Reset",
-    description:
-      "Total elimination of odors and bacteria at the source. We go beyond surface cleaning to restore hygiene at a cellular level.",
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7H5a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2zM3 7l9-4 9 4" />
-      </svg>
-    ),
-  },
-  {
-    title: "Commercial Kitchens",
-    description:
-      "Deep degreasing of floors, equipment, and exhaust systems. Hospital-grade sanitation for food-safe environments.",
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2m-4 0H7a2 2 0 01-2-2v-6a2 2 0 012-2h2m4 0V5a2 2 0 00-2-2H9a2 2 0 00-2 2v3m4 0h2" />
-      </svg>
-    ),
-  },
-  {
-    title: "Gas Stations & Retail",
-    description:
-      "High-traffic area sterilization. We disinfect every touchpoint your customers contact daily.",
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-      </svg>
-    ),
-  },
+const items = [
   {
     title: "Tile & Grout",
-    description:
-      "Professional-grade restoration and scale removal. We bring surfaces back to their original condition.",
+    subtitle: "Floors & Walls",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Sinks",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 11h18M12 11V6m0 0h2m-2 0H9m10 5v3a5 5 0 01-5 5h-4a5 5 0 01-5-5v-3" />
+        <circle cx="12" cy="18" r="0.5" fill="currentColor" strokeWidth={1} />
+      </svg>
+    ),
+  },
+  {
+    title: "Toilets",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4h8v4H7z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 8h12c.6 4-1 7-2.5 8.5S12 19 12 19s-2 .5-3.5-2.5S5.4 12 6 8z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v1a1 1 0 001 1h4a1 1 0 001-1v-1" />
+      </svg>
+    ),
+  },
+  {
+    title: "Showers",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 4a3 3 0 016 0v3H9V4z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 7h14M8 12v.01M12 12v.01M16 12v.01M8 16v.01M12 16v.01M16 16v.01M8 20v.01M12 20v.01M16 20v.01" />
+      </svg>
+    ),
+  },
+  {
+    title: "Mirrors",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <rect x="5" y="3" width="14" height="18" rx="2" strokeWidth={2} />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v18" />
+      </svg>
+    ),
+  },
+  {
+    title: "Fixtures",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.7 6.3a3 3 0 10-4.4 4.4L4 17v3h3l6.3-6.3a3 3 0 004.4-4.4l-2.1 2.1-2-2 2.1-2.1z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Dispensers",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <rect x="7" y="8" width="10" height="13" rx="1.5" strokeWidth={2} />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 8V5a2 2 0 012-2 2 2 0 012 2M15 12h3v3h-3" />
+      </svg>
+    ),
+  },
+  {
+    title: "Urinals",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3h6v3a2 2 0 002 2v3c0 5-2.5 6-3 8.5a2 2 0 01-2 1.5 2 2 0 01-2-1.5C9.5 17 7 16 7 11V8a2 2 0 002-2V3z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Vents",
+    icon: (
+      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <rect x="4" y="5" width="16" height="14" rx="2" strokeWidth={2} />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 9h12M6 12.5h12M6 16h12" />
       </svg>
     ),
   },
@@ -49,7 +88,6 @@ const services = [
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-  const bgImgRef = useRef<HTMLDivElement>(null);
   const blob1Ref = useRef<HTMLDivElement>(null);
   const blob2Ref = useRef<HTMLDivElement>(null);
 
@@ -60,9 +98,6 @@ export default function Services() {
       const centerOffset = rect.top + rect.height / 2 - window.innerHeight / 2;
       if (contentRef.current) {
         contentRef.current.style.transform = `translateY(${centerOffset * -0.025}px)`;
-      }
-      if (bgImgRef.current) {
-        bgImgRef.current.style.transform = `translateY(${centerOffset * 0.12}px) scale(1.1)`;
       }
       if (blob1Ref.current) {
         blob1Ref.current.style.transform = `translateY(${centerOffset * 0.09}px)`;
@@ -76,39 +111,18 @@ export default function Services() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="services" className="relative overflow-hidden">
-      {/* Parallax background image */}
-      <div
-        ref={bgImgRef}
-        className="absolute inset-0 scale-110 will-change-transform origin-center"
-        aria-hidden="true"
-      >
-        <Image
-          src="/images/modern-stainless-steel-kitchen.jpg"
-          alt=""
-          fill
-          className="object-cover"
-          priority
-        />
-      </div>
-
-      {/* Dark overlay */}
-      <div
-        className="absolute inset-0"
-        style={{ backgroundColor: "rgba(26, 32, 44, 0.88)" }}
-      />
-
+    <section ref={sectionRef} id="services" className="relative overflow-hidden bg-white">
       {/* Parallax decorative orbs */}
       <div
         ref={blob1Ref}
         className="absolute -left-24 top-1/4 w-72 h-72 rounded-full will-change-transform pointer-events-none"
-        style={{ backgroundColor: "#2ABFBF", opacity: 0.06 }}
+        style={{ backgroundColor: "#B6FF3D", opacity: 0.08 }}
         aria-hidden="true"
       />
       <div
         ref={blob2Ref}
         className="absolute -right-20 bottom-1/4 w-96 h-96 rounded-full will-change-transform pointer-events-none"
-        style={{ backgroundColor: "#2ABFBF", opacity: 0.04 }}
+        style={{ backgroundColor: "#1A202C", opacity: 0.04 }}
         aria-hidden="true"
       />
 
@@ -117,47 +131,39 @@ export default function Services() {
         <div className="text-center mb-14">
           <p
             className="text-xs uppercase tracking-[0.2em] font-semibold mb-3"
-            style={{ color: "#2ABFBF" }}
+            style={{ color: "#1A202C" }}
           >
-            What We Do
+            What We Cover
           </p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-5">
-            Deep Cleaning &amp; Specialty Resets
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#1A202C] mb-5">
+            We Deep Clean It All!
           </h2>
-          <p className="text-gray-200 max-w-xl mx-auto text-base leading-relaxed font-medium">
-            One visit is all it takes. We deliver a surgical-level reset your
-            regular crew simply can&apos;t match.
+          <p className="text-gray-600 max-w-xl mx-auto text-base leading-relaxed font-medium">
+            One visit. Every surface. Every fixture.
           </p>
         </div>
 
-        {/* Service cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-14">
-          {services.map((svc) => (
+        {/* 3x3 icon grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
+          {items.map((item) => (
             <div
-              key={svc.title}
-              className="group rounded-2xl p-8 border border-transparent hover:border-[#2ABFBF] transition-all duration-300 bg-white"
+              key={item.title}
+              className="group flex flex-col items-center text-center gap-3 rounded-2xl p-6 sm:p-8 border-2 border-transparent hover:border-[#B6FF3D] bg-white shadow-sm transition-all duration-300"
             >
               <div
-                className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"
-                style={{ backgroundColor: "rgba(42,191,191,0.15)", color: "#2ABFBF" }}
+                className="w-14 h-14 rounded-xl flex items-center justify-center"
+                style={{ backgroundColor: "#1A202C", color: "#B6FF3D" }}
               >
-                {svc.icon}
+                {item.icon}
               </div>
-              <h3 className="font-bold text-xl mb-3" style={{ color: "#2ABFBF" }}>{svc.title}</h3>
-              <p className="text-gray-700 leading-relaxed text-base">{svc.description}</p>
+              <div>
+                <h3 className="font-bold text-lg text-[#1A202C]">{item.title}</h3>
+                {item.subtitle && (
+                  <p className="text-gray-500 text-sm">{item.subtitle}</p>
+                )}
+              </div>
             </div>
           ))}
-        </div>
-
-        {/* CTA */}
-        <div className="text-center">
-          <a
-            href="#contact"
-            className="inline-block bg-[#E53E3E] hover:bg-red-700 text-white px-10 py-4 rounded-full text-base font-semibold transition-colors mb-3"
-          >
-            Get a Free Assessment
-          </a>
-          <p className="text-gray-500 text-sm mt-3">No obligation. No contracts.</p>
         </div>
       </div>
     </section>

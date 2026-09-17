@@ -4,10 +4,11 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 
 const serviceOptions = [
-  "Restroom Reset",
-  "Commercial Kitchen",
-  "Gas Station & Retail",
-  "Tile & Grout",
+  "Restaurant",
+  "Gas Station",
+  "Retail Store",
+  "Office Building",
+  "Medical Office",
   "Other",
 ];
 
@@ -68,24 +69,26 @@ export default function Contact() {
         />
       </div>
 
-      {/* Teal overlay — keeps brand color */}
+      {/* Navy overlay — keeps brand color */}
       <div
         className="absolute inset-0"
-        style={{ backgroundColor: "rgba(42, 191, 191, 0.82)" }}
+        style={{ backgroundColor: "rgba(26, 32, 44, 0.92)" }}
       />
 
       <div ref={contentRef} className="relative will-change-transform max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="text-xs uppercase tracking-[0.2em] font-semibold text-white/60 mb-3">
+          <p
+            className="text-xs uppercase tracking-[0.2em] font-semibold mb-3"
+            style={{ color: "#B6FF3D" }}
+          >
             Get In Touch
           </p>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-3">
-            Schedule Your{" "}
-            <span style={{ color: "#1A202C" }}>Deep Reset</span> Today
+            Stop Letting Germs Renew Their Lease.
           </h2>
           <p className="text-white/80 text-base">
-            One visit. Total disinfection. Let&apos;s get started.
+            Schedule your Deep Reset today.
           </p>
         </div>
 
@@ -95,8 +98,8 @@ export default function Contact() {
             {submitted ? (
               <div className="flex flex-col items-center justify-center h-full text-center py-16 gap-4">
                 <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl"
-                  style={{ backgroundColor: "#2ABFBF" }}
+                  className="w-16 h-16 rounded-full flex items-center justify-center text-2xl"
+                  style={{ backgroundColor: "#B6FF3D", color: "#1A202C" }}
                 >
                   ✓
                 </div>
@@ -118,7 +121,7 @@ export default function Contact() {
                       required
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2ABFBF]"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A202C]"
                       placeholder="Your name"
                     />
                   </div>
@@ -132,7 +135,7 @@ export default function Contact() {
                       required
                       value={formData.company}
                       onChange={handleChange}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2ABFBF]"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A202C]"
                       placeholder="Business name"
                     />
                   </div>
@@ -149,7 +152,7 @@ export default function Contact() {
                       required
                       value={formData.phone}
                       onChange={handleChange}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2ABFBF]"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A202C]"
                       placeholder="(303) 000-0000"
                     />
                   </div>
@@ -163,7 +166,7 @@ export default function Contact() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2ABFBF]"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A202C]"
                       placeholder="you@company.com"
                     />
                   </div>
@@ -177,7 +180,7 @@ export default function Contact() {
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2ABFBF] bg-white"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A202C] bg-white"
                   >
                     <option value="">Select a service…</option>
                     {serviceOptions.map((opt) => (
@@ -197,16 +200,17 @@ export default function Contact() {
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#2ABFBF] resize-none"
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1A202C] resize-none"
                     placeholder="Tell us about your facility and what you need…"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-[#E53E3E] hover:bg-red-700 text-white py-3.5 rounded-full font-semibold transition-colors text-base"
+                  className="w-full text-[#1A202C] py-3.5 rounded-full font-bold uppercase tracking-wide transition-all hover:brightness-90 text-base"
+                  style={{ backgroundColor: "#B6FF3D" }}
                 >
-                  Send My Request
+                  Schedule Your Deep Reset
                 </button>
               </form>
             )}
@@ -233,10 +237,27 @@ export default function Contact() {
                   Email
                 </p>
                 <a
-                  href="mailto:debbie@germeviction.com"
+                  href="mailto:info@germeviction.com"
                   className="text-xl font-bold hover:underline break-all"
                 >
-                  debbie@germeviction.com
+                  info@germeviction.com
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-5">
+              <span className="text-2xl mt-0.5">🌐</span>
+              <div>
+                <p className="font-semibold text-white/60 text-xs uppercase tracking-widest mb-1.5">
+                  Website
+                </p>
+                <a
+                  href="https://germeviction.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xl font-bold hover:underline"
+                >
+                  Germeviction.com
                 </a>
               </div>
             </div>

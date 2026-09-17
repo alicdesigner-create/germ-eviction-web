@@ -10,11 +10,11 @@ export const metadata: Metadata = {
     shortcut: "/icon.png",
     apple: "/icon.png",
   },
-  title: "Germ Eviction | Deep Cleaning & Specialty Resets",
+  title: "Germ Eviction | One Visit. Total Restroom Disinfection.",
   description:
-    "Germ Eviction delivers surgical-level commercial disinfection and deep cleaning in Westminster, CO and the greater Denver area. Restroom resets, commercial kitchen degreasing, gas station sterilization, tile & grout restoration.",
+    "Germ Eviction is specialized commercial restroom deep cleaning in Westminster, CO and the greater Denver area. One visit, total disinfection — for restaurants, gas stations, retail stores, offices, and medical facilities.",
   keywords:
-    "commercial cleaning Denver, deep cleaning Westminster CO, commercial disinfection Colorado, restroom reset Denver, kitchen deep clean Denver, gas station cleaning Colorado, tile grout restoration, Germ Eviction",
+    "commercial restroom cleaning Denver, restroom deep cleaning Westminster CO, commercial restroom disinfection Colorado, restroom reset Denver, tile grout restoration, Germ Eviction",
 };
 
 export default function RootLayout({
