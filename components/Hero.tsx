@@ -95,7 +95,7 @@ export default function Hero() {
             alt="Germ Eviction"
             width={1536}
             height={786}
-            className="w-64 sm:w-80 h-auto"
+            className="w-80 sm:w-[26rem] lg:w-[32rem] h-auto"
             priority
           />
         </div>
