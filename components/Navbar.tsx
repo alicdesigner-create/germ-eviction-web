@@ -32,11 +32,11 @@ export default function Navbar() {
           {/* Logo */}
           <a href="#home" className="flex-shrink-0">
             <Image
-              src="/images/Germevictionlogo.png"
+              src="/images/GermEvictionWordmark.png"
               alt="Germ Eviction"
-              width={192}
-              height={98}
-              className="object-contain h-14 w-auto"
+              width={383}
+              height={63}
+              className="object-contain h-9 sm:h-10 w-auto"
               priority
             />
           </a>
