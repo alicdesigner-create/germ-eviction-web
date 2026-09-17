@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 const items = [
   {
     title: "Tile & Grout",
     subtitle: "Floors & Walls",
+    image: "/images/3.jpeg",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
@@ -14,6 +16,7 @@ const items = [
   },
   {
     title: "Sinks",
+    image: "/images/Deep_Clean.jpg",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 11h18M12 11V6m0 0h2m-2 0H9m10 5v3a5 5 0 01-5 5h-4a5 5 0 01-5-5v-3" />
@@ -23,6 +26,7 @@ const items = [
   },
   {
     title: "Toilets",
+    image: "/images/2.jpeg",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4h8v4H7z" />
@@ -42,6 +46,7 @@ const items = [
   },
   {
     title: "Mirrors",
+    image: "/images/6.jpeg",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <rect x="5" y="3" width="14" height="18" rx="2" strokeWidth={2} />
@@ -51,6 +56,7 @@ const items = [
   },
   {
     title: "Fixtures",
+    image: "/images/4.jpeg",
     icon: (
       <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.7 6.3a3 3 0 10-4.4 4.4L4 17v3h3l6.3-6.3a3 3 0 004.4-4.4l-2.1 2.1-2-2 2.1-2.1z" />
@@ -145,25 +151,58 @@ export default function Services() {
 
         {/* 3x3 icon grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
-          {items.map((item) => (
-            <div
-              key={item.title}
-              className="group flex flex-col items-center text-center gap-3 rounded-2xl p-6 sm:p-8 border-2 border-transparent hover:border-[#B6FF3D] bg-white shadow-sm transition-all duration-300"
-            >
+          {items.map((item) =>
+            item.image ? (
               <div
-                className="w-14 h-14 rounded-xl flex items-center justify-center"
-                style={{ backgroundColor: "#1A202C", color: "#B6FF3D" }}
+                key={item.title}
+                className="group relative overflow-hidden rounded-2xl shadow-sm"
+                style={{ height: "220px" }}
               >
-                {item.icon}
+                <div className="absolute inset-0 transition-transform duration-[600ms] ease-in-out group-hover:scale-[1.08]">
+                  <Image src={item.image} alt={item.title} fill className="object-cover" />
+                </div>
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: "linear-gradient(to bottom, rgba(16,27,46,0.25) 0%, rgba(16,27,46,0.85) 100%)",
+                  }}
+                />
+                <div className="absolute inset-0 flex flex-col items-center justify-between px-4 py-6">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center"
+                    style={{ backgroundColor: "rgba(182,255,61,0.15)", color: "#B6FF3D" }}
+                  >
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg text-white drop-shadow-md">{item.title}</h3>
+                    {item.subtitle && (
+                      <p className="text-gray-200 text-sm drop-shadow-md">{item.subtitle}</p>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div>
-                <h3 className="font-bold text-lg text-[#1A202C]">{item.title}</h3>
-                {item.subtitle && (
-                  <p className="text-gray-500 text-sm">{item.subtitle}</p>
-                )}
+            ) : (
+              <div
+                key={item.title}
+                className="group flex flex-col items-center text-center gap-3 rounded-2xl p-6 sm:p-8 border-2 border-transparent hover:border-[#B6FF3D] bg-white shadow-sm transition-all duration-300"
+                style={{ height: "220px", justifyContent: "center" }}
+              >
+                <div
+                  className="w-14 h-14 rounded-xl flex items-center justify-center"
+                  style={{ backgroundColor: "#1A202C", color: "#B6FF3D" }}
+                >
+                  {item.icon}
+                </div>
+                <div>
+                  <h3 className="font-bold text-lg text-[#1A202C]">{item.title}</h3>
+                  {item.subtitle && (
+                    <p className="text-gray-500 text-sm">{item.subtitle}</p>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          )}
         </div>
       </div>
     </section>
