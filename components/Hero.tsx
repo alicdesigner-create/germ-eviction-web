@@ -87,7 +87,7 @@ export default function Hero() {
       />
 
       {/* Content */}
-      <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-6 py-28">
+      <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-6 py-28">
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <Image
@@ -109,10 +109,10 @@ export default function Hero() {
         </p>
 
         {/* H1 */}
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold leading-tight mb-5">
+        <h1 className="text-4xl sm:text-6xl lg:text-6xl font-extrabold leading-tight mb-5">
           One Visit.
           <br />
-          <span style={{ color: "#B6FF3D" }}>Total Restroom Disinfection!</span>
+          <span style={{ color: "#B6FF3D" }} className="lg:whitespace-nowrap">Total Restroom Disinfection!</span>
         </h1>
 
         {/* Subline */}
