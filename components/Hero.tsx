@@ -9,6 +9,23 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
       style={{ backgroundColor: "#1A202C" }}
     >
+      {/* Background photo */}
+      <div className="absolute inset-0" aria-hidden="true">
+        <Image
+          src="/images/hero-bathroom.jpg"
+          alt=""
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
+
+      {/* Navy tint overlay */}
+      <div
+        className="absolute inset-0"
+        style={{ backgroundColor: "rgba(26, 32, 44, 0.86)" }}
+      />
+
       {/* Content */}
       <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-6 py-28">
         {/* Logo */}
