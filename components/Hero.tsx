@@ -88,6 +88,18 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-6 py-28">
+        {/* Logo */}
+        <div className="flex justify-center mb-8">
+          <Image
+            src="/images/Germevictionlogo.png"
+            alt="Germ Eviction"
+            width={1536}
+            height={786}
+            className="w-64 sm:w-80 h-auto"
+            priority
+          />
+        </div>
+
         {/* Label */}
         <p
           className="text-xs uppercase tracking-[0.2em] font-semibold mb-5"
