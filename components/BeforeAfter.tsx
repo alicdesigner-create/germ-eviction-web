@@ -3,8 +3,6 @@
 import { useEffect, useRef } from "react";
 import Image from "next/image";
 
-const buildupPhotos = [1, 2, 3, 4, 5, 6, 7];
-
 export default function BeforeAfter() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -86,35 +84,6 @@ export default function BeforeAfter() {
           Same toilet, same fixture — normal light on the left, blacklight on the right.
         </p>
 
-        {/* Supporting buildup mosaic */}
-        <div>
-          <p className="text-center text-gray-300 text-base mb-6">
-            This is what basic cleaning leaves behind.
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-            {buildupPhotos.map((n) => (
-              <div
-                key={n}
-                className="relative aspect-square overflow-hidden rounded-xl group"
-              >
-                <Image
-                  src={`/images/${n}.jpeg`}
-                  alt={`Restroom buildup ${n}`}
-                  fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-            ))}
-            <div className="relative aspect-square overflow-hidden rounded-xl group">
-              <Image
-                src="/images/Limescale_Buildup.jpg"
-                alt="Limescale buildup on fixtures"
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );
