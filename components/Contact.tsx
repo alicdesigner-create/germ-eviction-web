@@ -224,8 +224,8 @@ export default function Contact() {
                 <p className="font-semibold text-white/60 text-xs uppercase tracking-widest mb-1.5">
                   Phone
                 </p>
-                <a href="tel:3036659757" className="text-2xl font-bold hover:underline">
-                  (303) 665-9757
+                <a href="tel:+17209102468" className="text-2xl font-bold hover:underline">
+                  (720) 910-2468
                 </a>
               </div>
             </div>

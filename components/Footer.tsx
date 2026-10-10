@@ -41,8 +41,8 @@ export default function Footer() {
             <p>11005 Dover St., Unit 200</p>
             <p>Westminster, CO 80021</p>
             <p className="mt-2">
-              <a href="tel:3036659757" className="hover:text-white transition-colors">
-                (303) 665-9757
+              <a href="tel:+17209102468" className="hover:text-white transition-colors">
+                (720) 910-2468
               </a>
             </p>
             <p>

@@ -52,7 +52,7 @@ export default function Hero() {
         <h1 className="text-4xl sm:text-6xl lg:text-6xl font-extrabold leading-tight mb-5">
           One Visit.
           <br />
-          <span style={{ color: "#B6FF3D" }} className="lg:whitespace-nowrap">Total Restroom Disinfection!</span>
+          <span style={{ color: "#B6FF3D" }} className="lg:whitespace-nowrap">GERMS EVICTED.</span>
         </h1>
 
         {/* Subline */}
